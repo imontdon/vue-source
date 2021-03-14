@@ -41,6 +41,8 @@ function setupStatefulComponent(instance, isSSR) {
       const setupResult = callWithErrorHandling(setup, instance, 0 /* SETUP_FUNCTION */, [(process.env.NODE_ENV !== 'production') ? shallowReadonly(instance.props) : instance.props, setupContext]);
       resetTracking();
       currentInstance = null;
+
+
       if (isPromise(setupResult)) {
           if (isSSR) {
               // return the promise so server-renderer can wait on it
@@ -51,7 +53,7 @@ function setupStatefulComponent(instance, isSSR) {
           else {
               // async setup returned Promise.
               // bail here and wait for re-entry.
-              instance.asyncDep = setupResult;
+              instance.asyncDep = setupResult; // 缓存赋值
           }
       }
       else {

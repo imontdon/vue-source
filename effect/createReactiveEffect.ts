@@ -12,8 +12,10 @@ function createReactiveEffect(fn, options) {
           cleanup(effect);
           try {
             // 开始追踪
+            // shouldTrack = true, getter时有数据
               enableTracking();
               effectStack.push(effect);
+              // 提前设置activeEffect, getter的时候有数据
               activeEffect = effect;
               return fn();
           }

@@ -12,6 +12,7 @@ function setupComponent(instance, isSSR = false) {
   initProps(instance, props, isStateful, isSSR);
   // 设置slots
   initSlots(instance, children);
+  // 处理setup函数, 有的话执行, 在∑此期间要调用兼容vue2的applyOptions方法
   const setupResult = isStateful
       ? setupStatefulComponent(instance, isSSR)
       : undefined;

@@ -91,12 +91,13 @@ function doWatch(source, cb, { immediate, deep, flush, onTrack, onTrigger } = EM
       }
       if (cb) {
           // watch(source, cb)
-          const newValue = runner();
+          const newValue = runner(); // 获取newValue - 走effect函数
           if (deep || forceTrigger || hasChanged(newValue, oldValue)) {
               // cleanup before running cb again
-              if (cleanup) {
-                  cleanup();
+              if (cleanup) { // 如果有用到onInvalidate函数去处理自定义函数的话走cleanup流程
+                  cleanup(); // 执行自定义函数
               }
+              // 执行watch的callback函数callback(oldValue, newValue, onInvalidate)
               callWithAsyncErrorHandling(cb, instance, 3 /* WATCH_CALLBACK */, [
                   newValue,
                   // pass undefined as the old value when it's changed for the first time
@@ -123,6 +124,7 @@ function doWatch(source, cb, { immediate, deep, flush, onTrack, onTrigger } = EM
   }
   else {
       // default: 'pre'
+      // watch的时候，数据setter触发了trigger函数会执行effect.scheduler()
       scheduler = () => {
           if (!instance || instance.isMounted) {
               queuePreFlushCb(job);

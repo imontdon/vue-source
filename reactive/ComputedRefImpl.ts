@@ -3,6 +3,7 @@ class ComputedRefImpl {
       this._setter = _setter;
       this._dirty = true;
       this.__v_isRef = true;
+      // set派发的时候会执行scheduler函数
       this.effect = effect(getter, {
           lazy: true,
           scheduler: () => {
