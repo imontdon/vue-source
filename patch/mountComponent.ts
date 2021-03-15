@@ -17,7 +17,7 @@ const mountComponent = (initialVNode, container, anchor, parentComponent, parent
   }
   // inject renderer internals for keepAlive
   if (isKeepAlive(initialVNode)) {
-      instance.ctx.renderer = internals;
+      instance.ctx.renderer = internals; // 生命周期函数对象
   }
   // resolve props and slots for setup context
   if ((process.env.NODE_ENV !== 'production')) {
