@@ -70,7 +70,7 @@ const setupRenderEffect = (instance, initialVNode, container, anchor, parentSusp
           // #2458: deference mount-only object parameters to prevent memleaks
           initialVNode = container = anchor = null;
       }
-      else {
+      else { // 更新逻辑
           // updateComponent
           // This is triggered by mutation of component's own state (next: null)
           // OR parent calling processComponent (next: VNode)
@@ -81,7 +81,7 @@ const setupRenderEffect = (instance, initialVNode, container, anchor, parentSusp
           if ((process.env.NODE_ENV !== 'production')) {
               pushWarningContext(next || instance.vnode);
           }
-          if (next) {
+          if (next) { // 这边在一个地方会赋值 - pending
               next.el = vnode.el;
               updateComponentPreRender(instance, next, optimized);
           }
@@ -100,15 +100,20 @@ const setupRenderEffect = (instance, initialVNode, container, anchor, parentSusp
           if ((process.env.NODE_ENV !== 'production')) {
               startMeasure(instance, `render`);
           }
+          // 新结点
           const nextTree = renderComponentRoot(instance);
           if ((process.env.NODE_ENV !== 'production')) {
               endMeasure(instance, `render`);
           }
+
+          // 老结点
           const prevTree = instance.subTree;
+          // 重新赋值
           instance.subTree = nextTree;
           if ((process.env.NODE_ENV !== 'production')) {
               startMeasure(instance, `patch`);
           }
+          // patch
           patch(prevTree, nextTree, 
           // parent may have changed if it's in a teleport
           hostParentNode(prevTree.el), 
