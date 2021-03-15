@@ -14,6 +14,7 @@ function normalizePropsOptions(comp, appContext, asMixin = false) {
   // 组件内的props
   const raw = comp.props;
   const normalized = {};
+  // 有布尔类型的话 || 有default 会放入对应子组件的props
   const needCastKeys = [];
   // apply mixin/extends props
   let hasExtends = false;
@@ -74,7 +75,7 @@ function normalizePropsOptions(comp, appContext, asMixin = false) {
                   prop[1 /* shouldCastTrue */] =
                       stringIndex < 0 || booleanIndex < stringIndex;
                   // if the prop needs boolean casting or default value
-                  // 有布尔类型的化 || 有default
+                  // 有布尔类型的话 || 有default
                   if (booleanIndex > -1 || hasOwn(prop, 'default')) {
                       needCastKeys.push(normalizedKey);
                   }

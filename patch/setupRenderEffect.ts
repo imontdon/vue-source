@@ -20,6 +20,8 @@ const setupRenderEffect = (instance, initialVNode, container, anchor, parentSusp
           if ((process.env.NODE_ENV !== 'production')) {
               startMeasure(instance, `render`);
           }
+          // 渲染实例
+          // normalizeVNode后的vnode
           const subTree = (instance.subTree = renderComponentRoot(instance));
           if ((process.env.NODE_ENV !== 'production')) {
               endMeasure(instance, `render`);
@@ -38,6 +40,7 @@ const setupRenderEffect = (instance, initialVNode, container, anchor, parentSusp
               if ((process.env.NODE_ENV !== 'production')) {
                   startMeasure(instance, `patch`);
               }
+              // 初始化走这里
               patch(null, subTree, container, anchor, instance, parentSuspense, isSVG);
               if ((process.env.NODE_ENV !== 'production')) {
                   endMeasure(instance, `patch`);

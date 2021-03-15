@@ -24,6 +24,7 @@ function createReactiveObject(target, isReadonly, baseHandlers, collectionHandle
   }
 
   // v_skip || 不可扩展0, 其他targetTypeMap
+  // v_skip => dynamicChildren
   // only a whitelist of value types can be observed.
   const targetType = getTargetType(target);
   if (targetType === 0 /* INVALID */) {

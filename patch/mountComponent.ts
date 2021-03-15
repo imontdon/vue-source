@@ -1,3 +1,11 @@
+const stack = [];
+function pushWarningContext(vnode) {
+    stack.push(vnode);
+}
+function popWarningContext() {
+    stack.pop();
+}
+
 const mountComponent = (initialVNode, container, anchor, parentComponent, parentSuspense, isSVG, optimized) => {
   const instance = (initialVNode.component = createComponentInstance(initialVNode, parentComponent, parentSuspense));
   if ((process.env.NODE_ENV !== 'production') && instance.type.__hmrId) {
@@ -15,7 +23,7 @@ const mountComponent = (initialVNode, container, anchor, parentComponent, parent
   if ((process.env.NODE_ENV !== 'production')) {
       startMeasure(instance, `init`);
   }
-  // 处理setup函数
+  // 处理组件的setup函数
   setupComponent(instance);
   if ((process.env.NODE_ENV !== 'production')) {
       endMeasure(instance, `init`);

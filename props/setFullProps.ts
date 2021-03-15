@@ -19,6 +19,7 @@ function setFullProps(instance, rawProps, props, attrs) {
           // kebab -> camel conversion here we need to camelize the key.
           let camelKey;
           // camelize => (a_b => aB)
+          // 子组件的props定义中是否有这个属性, 有的话赋值给props否则赋值给attrs
           if (options && hasOwn(options, (camelKey = camelize(key)))) {
               props[camelKey] = value;
           }
