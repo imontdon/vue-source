@@ -66,6 +66,7 @@ function pushWithRedirect(to, redirectedFrom) {
           failure = finalizeNavigation(toLocation, from, true, replace, data);
       }
       triggerAfterEach(toLocation, from, failure);
-      return failure; // 结束后触发flushJobs 执行effect去更新视图
+      return failure; // 结束后触发flushJobs 执行effect去patch更新视图
+      // 假设这里有<router-view /> 标签, 则先patch router-view所在的组件, 然后再patch router-view内部的
   });
 }
