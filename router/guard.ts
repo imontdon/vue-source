@@ -13,7 +13,7 @@ function guardToPromiseFn(guard, to, from, record, name) {
           else if (valid instanceof Error) { // next(throw new Error('xxx'))
               reject(valid);
           }
-          else if (isRouteLocation(valid)) {
+          else if (isRouteLocation(valid)) { // typeof valid === 'string' || (valid && typeof valid === 'object');
               reject(createRouterError(2 /* NAVIGATION_GUARD_REDIRECT */, {
                   from: to,
                   to: valid,
@@ -23,9 +23,9 @@ function guardToPromiseFn(guard, to, from, record, name) {
               if (enterCallbackArray &&
                   // since enterCallbackArray is truthy, both record and name also are
                   record.enterCallbacks[name] === enterCallbackArray &&
-                  typeof valid === 'function')
+                  typeof valid === 'function') // 是函数的话执行push
                   enterCallbackArray.push(valid);
-              resolve();
+              resolve(); // resolve出去
           }
       };
       // wrapping with Promise.resolve allows it to work with both async and sync guards

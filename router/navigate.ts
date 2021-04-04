@@ -1,8 +1,16 @@
+/**
+ * 
+ * @param to 
+ * @param from 
+ * @returns 
+ */
 function navigate(to, from) {
+    // checkCanceledNavigation这个方法：如果第一个参数和第二个参数(to, from)不相等 return error
   let guards;
   const [leavingRecords, updatingRecords, enteringRecords,] = extractChangingRecords(to, from);
   console.log('check component: beforeRouteLeave guard', 'extractComponentsGuards')
   // all components here have been resolved once because we are leaving
+  // extractComponentsGuards: match去找组件，在组件里找到guardType: beforeRouteLeave的guard => guards.push(guardToPromiseFn(guard, to, from));
   guards = extractComponentsGuards(leavingRecords.reverse(), 'beforeRouteLeave', to, from);
   // leavingRecords is already reversed
   for (const record of leavingRecords) {
@@ -82,6 +90,7 @@ function navigate(to, from) {
       }
       guards.push(canceledNavigationCheck);
       console.warn('run global: beforeResolve guard')
+      // 返回beforeResolve的值, 如果没有则是undefined
       return runGuardQueue(guards);
   })
       // catch any navigation canceled
